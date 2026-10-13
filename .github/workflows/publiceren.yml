@@ -1,0 +1,49 @@
+# Bouwt de website en zet hem online bij de hostingprovider (via FTP).
+# Draait vanzelf na elke wijziging op GitHub. Zie README.md, hoofdstuk 6.
+
+name: Website publiceren
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publiceren
+  cancel-in-progress: false
+
+jobs:
+  publiceren:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: "0.166.0"
+      SITE_URL: ${{ vars.SITE_URL || 'https://www.emmyeve.com/' }}
+      FTP_INGESTELD: ${{ secrets.FTP_SERVER != '' }}
+    steps:
+      - name: Code ophalen
+        uses: actions/checkout@v4
+
+      - name: Hugo installeren
+        run: |
+          curl -sSL -o /tmp/hugo.tgz "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          sudo tar -xzf /tmp/hugo.tgz -C /usr/local/bin hugo
+          hugo version
+
+      - name: Website bouwen
+        working-directory: site
+        run: hugo --gc --minify --baseURL "$SITE_URL"
+
+      - name: Uploaden naar de hosting
+        if: env.FTP_INGESTELD == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: site/public/
+          server-dir: ${{ vars.FTP_MAP || 'public_html/' }}
+
+      - name: Nog niet gekoppeld aan een hostingprovider
+        if: env.FTP_INGESTELD != 'true'
+        run: echo "De website is gebouwd, maar nog niet geüpload; stel eerst de FTP-gegevens in (README.md, hoofdstuk 6)."

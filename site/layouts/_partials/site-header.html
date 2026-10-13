@@ -1,0 +1,11 @@
+{{/* Smalle, rustige menubalk bovenaan elke pagina: HOME | LIVE | CONTACT */}}
+{{- $current := . -}}
+<header class="ee-topbar">
+  <nav class="ee-nav" aria-label="Hoofdmenu">
+    {{- range $i, $item := site.Menus.main -}}
+      {{- if $i }}<span class="ee-nav-sep" aria-hidden="true">|</span>{{ end -}}
+      {{- $active := or ($current.IsMenuCurrent "main" $item) ($current.HasMenuCurrent "main" $item) (and (eq $item.URL "/") $current.IsHome) (eq $current.RelPermalink $item.URL) -}}
+      <a href="{{ $item.URL | relURL }}"{{ if $active }} class="is-active" aria-current="page"{{ end }}>{{ $item.Name }}</a>
+    {{- end -}}
+  </nav>
+</header>

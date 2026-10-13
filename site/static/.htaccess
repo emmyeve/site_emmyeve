@@ -1,0 +1,7 @@
+# Voor webhosting met Apache (zoals Antagonist, Vimexx, TransIP).
+# Stuurt bezoekers altijd naar de beveiligde https-versie van de site.
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+ErrorDocument 404 /404.html

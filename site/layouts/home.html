@@ -1,0 +1,29 @@
+{{ define "title" }}{{ site.Title }} – {{ site.Params.description }}{{ end }}
+{{ define "main" }}
+  {{ partial "hero.html" (dict "page" . "groot" true) }}
+
+  <section class="ee-sectie" id="about">
+    <div class="ee-wrap ee-about">
+      {{- with .Params.about_foto }}
+        <figure class="ee-about-foto">
+          {{ partial "afbeelding.html" (dict "src" . "alt" "Emmy Eve" "breedtes" (slice 400 700 1000) "sizes" "(min-width: 60em) 26rem, 100vw" "lazy" true) }}
+        </figure>
+      {{- end }}
+      <div class="ee-about-tekst">
+        <h2 class="ee-kop">{{ .Params.about_titel | default "ABOUT" }}</h2>
+        <div class="ee-tekst">{{ .Content }}</div>
+      </div>
+    </div>
+  </section>
+
+  {{- with .Params.spotify }}
+  <section class="ee-sectie ee-sectie--muziek" id="muziek">
+    <div class="ee-wrap ee-smal">
+      <h2 class="ee-kop">{{ $.Params.muziek_titel | default "MUSIC" }}</h2>
+      {{- with $.Params.muziek_tekst }}<p class="ee-intro">{{ . }}</p>{{ end }}
+      <iframe class="ee-spotify" src="{{ partial "embed-url.html" . }}" width="100%" height="452" frameborder="0" allowfullscreen
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify-speler"></iframe>
+    </div>
+  </section>
+  {{- end }}
+{{ end }}

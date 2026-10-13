@@ -1,0 +1,39 @@
+{{ define "main" }}
+  {{ partial "hero.html" (dict "page" .) }}
+
+  <section class="ee-sectie">
+    <div class="ee-wrap ee-smal">
+      {{ partial "optredens.html" . }}
+      {{- with .Content }}<div class="ee-tekst ee-noot">{{ . }}</div>{{ end }}
+    </div>
+  </section>
+
+  {{- with .Params.youtube }}
+  <section class="ee-sectie ee-sectie--donker">
+    <div class="ee-wrap ee-smal">
+      <h2 class="ee-kop">{{ $.Params.video_titel | default "LIVE BEELDEN" }}</h2>
+      <div class="ee-video">
+        <iframe src="{{ partial "embed-url.html" . }}" title="YouTube-video's" frameborder="0" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+  {{- end }}
+
+  {{- $fotos := resources.Match "images/galerij/*" -}}
+  {{- with $fotos }}
+  <section class="ee-sectie">
+    <div class="ee-wrap">
+      <h2 class="ee-kop">{{ $.Params.galerij_titel | default "FOTO'S" }}</h2>
+      <div class="ee-galerij">
+        {{- range sort . "Name" }}
+          {{- $groot := .Resize "1800x webp" -}}
+          <a href="{{ $groot.RelPermalink }}" target="_blank">
+            {{ partial "afbeelding.html" (dict "src" .Name "alt" "Emmy Eve live" "breedtes" (slice 400 800) "sizes" "(min-width: 60em) 30vw, 50vw" "lazy" true) }}
+          </a>
+        {{- end }}
+      </div>
+    </div>
+  </section>
+  {{- end }}
+{{ end }}
