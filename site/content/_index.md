@@ -7,8 +7,7 @@ foto: "images/hero.jpg"
 # Welk deel van de foto in beeld blijft als het scherm smaller is: top, center of bottom.
 foto_positie: "center 30%"
 
-# Foto naast de biografie.
-about_foto: "images/about.jpg"
+# Kopje boven de biografie.
 about_titel: "ABOUT"
 
 # Muziekspeler: plak hier een Spotify-link (album, nummer, playlist of artiest).
@@ -16,6 +15,10 @@ about_titel: "ABOUT"
 muziek_titel: "MUSIC"
 muziek_tekst: "Luister hier naar mijn album ‘Wat Ik Bedoel Te Zeggen’"
 spotify: "https://open.spotify.com/album/0jiQXkXsViYvsACHqi2l4n"
+
+# Onder de muziekspeler staan de eerstvolgende 3 optredens en de laatste 2
+# (onder "Verleden"). Die komen vanzelf uit data/optredens.yaml.
+live_titel: "LIVE"
 ---
 
 Emmy Eve staat voor verhalende popmuziek van Rotterdamse bodem. Deze songwriter is een oprecht exemplaar, integer en romantisch met de juiste dosis zelfspot. Met een goed gebekt karakter laat ze harten zuchten en luisteraars relativeren op pakkende popsongs.

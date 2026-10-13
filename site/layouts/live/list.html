@@ -4,7 +4,13 @@
   <section class="ee-sectie">
     <div class="ee-wrap ee-smal">
       {{ partial "optredens.html" . }}
-      {{- with .Content }}<div class="ee-tekst ee-noot">{{ . }}</div>{{ end }}
+
+      {{- with .Params.boekingen_titel }}
+      <div class="ee-vak ee-vak--groen ee-boekingen">
+        <h3>{{ . }}</h3>
+        {{ $.Params.boekingen_tekst | markdownify }}
+      </div>
+      {{- end }}
     </div>
   </section>
 
@@ -19,21 +25,6 @@
     </div>
   </section>
   {{- end }}
-
-  {{- $fotos := resources.Match "images/galerij/*" -}}
-  {{- with $fotos }}
-  <section class="ee-sectie">
-    <div class="ee-wrap">
-      <h2 class="ee-kop">{{ $.Params.galerij_titel | default "FOTO'S" }}</h2>
-      <div class="ee-galerij">
-        {{- range sort . "Name" }}
-          {{- $groot := .Resize "1800x webp" -}}
-          <a href="{{ $groot.RelPermalink }}" target="_blank">
-            {{ partial "afbeelding.html" (dict "src" .Name "alt" "Emmy Eve live" "breedtes" (slice 400 800) "sizes" "(min-width: 60em) 30vw, 50vw" "lazy" true) }}
-          </a>
-        {{- end }}
-      </div>
-    </div>
-  </section>
-  {{- end }}
 {{ end }}
+{{/* Geen contactblok op de LIVE-pagina, alleen de copyright-regel. */}}
+{{ define "footer" }}{{ partial "copyright.html" . }}{{ end }}

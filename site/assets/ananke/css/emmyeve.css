@@ -43,7 +43,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* ---------- Grote foto met titel ---------- */
 .ee-hero {
   position: relative; overflow: hidden;
-  min-height: min(46vh, 30rem); display: flex; align-items: flex-end; justify-content: center;
+  min-height: min(58vh, 38rem); display: flex; align-items: flex-end; justify-content: center;
   background: var(--ee-donker); color: #fff; text-align: center;
 }
 .ee-hero--groot { min-height: min(calc(100vh - 3rem), 60rem); min-height: min(calc(100svh - 3rem), 60rem); }
@@ -77,11 +77,9 @@ img { max-width: 100%; height: auto; display: block; }
 .ee-tekst p { margin: 0 0 1.1em; }
 .ee-noot { margin-top: 2rem; color: var(--ee-tekst-zacht); font-size: .95rem; }
 
-/* About */
-.ee-about { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-@media (min-width: 60em) { .ee-about { grid-template-columns: 26rem 1fr; } .ee-about-foto { position: sticky; top: 5rem; } }
-.ee-about-foto { margin: 0; }
-.ee-about-foto img { width: 100%; border-radius: 2px; box-shadow: 0 18px 40px -22px rgba(0,0,0,.45); }
+/* About: alleen tekst, gecentreerd */
+.ee-midden { text-align: center; }
+.ee-midden .ee-kop::after { margin-left: auto; margin-right: auto; }
 
 /* Muziek & video */
 .ee-spotify { display: block; border: 0; border-radius: 12px; }
@@ -103,9 +101,13 @@ img { max-width: 100%; height: auto; display: block; }
 .ee-socials a:hover { background: rgba(255,255,255,.18); }
 .ee-socials svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
 .ee-socials svg title { display: none; }
-.ee-nieuwsbrief { background: var(--ee-achtergrond); color: var(--ee-tekst); padding: 2rem; border-radius: 4px; }
-.ee-nieuwsbrief h3 { margin: 0 0 .6rem; color: var(--ee-oranje); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; font-size: 1rem; }
+.ee-nieuwsbrief, .ee-vak { background: var(--ee-achtergrond); color: var(--ee-tekst); padding: 2rem; border-radius: 4px; }
+.ee-nieuwsbrief h3, .ee-vak h3 { margin: 0 0 .6rem; color: var(--ee-oranje); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; font-size: 1rem; }
 .ee-nieuwsbrief p { margin: 0 0 1.4rem; }
+.ee-vak p { margin: 0; }
+.ee-vak--groen { background: var(--ee-groen); color: var(--ee-achtergrond); }
+.ee-vak--groen h3, .ee-vak--groen a { color: var(--ee-achtergrond); }
+.ee-boekingen { margin-top: 3rem; }
 .ee-nieuwsbrief .ee-knop { color: #fff; }
 
 .ee-knop {
@@ -128,17 +130,21 @@ img { max-width: 100%; height: auto; display: block; }
 .ee-show-details { display: block; color: var(--ee-tekst-zacht); font-size: .9rem; }
 .ee-leeg { color: var(--ee-tekst-zacht); font-style: italic; }
 .ee-eerder { margin-top: 3rem; }
-.ee-eerder summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; }
-.ee-eerder summary::-webkit-details-marker { display: none; }
-.ee-eerder summary::after { content: "+"; width: auto; height: auto; background: none; margin: 0; font-size: 1.4rem; font-weight: 300; }
-.ee-eerder[open] summary::after { content: "−"; }
+.ee-eerder-kop { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.ee-uitklap {
+  flex: 0 0 auto; width: 2.2rem; height: 2.2rem; margin-top: -.35rem;
+  border: 1px solid var(--ee-oranje); border-radius: 50%; background: none; color: var(--ee-oranje);
+  font: 300 1.4rem/1 "Montserrat", sans-serif; cursor: pointer; transition: background .2s, color .2s;
+}
+.ee-uitklap:hover { background: var(--ee-oranje); color: #fff; }
+.js .ee-shows:not(.is-open) > .ee-extra { display: none; }
+.ee-subkop { margin: 2rem 0 .3rem; font-size: .78rem; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; color: var(--ee-tekst-zacht); }
+.ee-subkop:first-child { margin-top: 0; }
+.ee-meer { margin: 2rem 0 0; }
+.ee-meer a { font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; text-decoration: none; }
+.ee-meer a:hover { text-decoration: underline; }
 .ee-shows--eerder .ee-show { padding: .6rem 0; }
 .ee-shows--eerder .ee-show-dag { font-size: 1.2rem; color: var(--ee-tekst-zacht); }
-
-/* Galerij */
-.ee-galerij { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(14rem, 45%), 1fr)); gap: .6rem; }
-.ee-galerij img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: opacity .2s; }
-.ee-galerij a:hover img { opacity: .85; }
 
 /* Voettekst */
 .ee-footer { text-align: center; padding: 1.4rem 1rem; font-size: .75rem; letter-spacing: .15em; color: var(--ee-tekst-zacht); }

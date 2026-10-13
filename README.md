@@ -22,7 +22,7 @@ Neem de tijd voor hoofdstuk 1 tot en met 3. Daarna kun je bij elke klus
    - [5.4 Een andere Spotify-speler](#54-een-andere-spotify-speler)
    - [5.5 Een andere YouTube-playlist](#55-een-andere-youtube-playlist)
    - [5.6 Een foto vervangen](#56-een-foto-vervangen)
-   - [5.7 Foto's toevoegen aan de galerij](#57-fotos-toevoegen-aan-de-galerij)
+   - [5.7 Het vak Boekingen op de LIVE-pagina](#57-het-vak-boekingen-op-de-live-pagina)
    - [5.8 E-mailadres, social media en nieuwsbrief](#58-e-mailadres-social-media-en-nieuwsbrief)
    - [5.9 Kleuren aanpassen](#59-kleuren-aanpassen)
    - [5.10 Later een webshop toevoegen](#510-later-een-webshop-toevoegen)
@@ -63,11 +63,11 @@ wijziging online.
 
 Je website heeft drie pagina's:
 
-- **HOME**: grote foto met je naam, je biografie (ABOUT), de Spotify-speler en onderaan het contactblok.
-- **LIVE**: je agenda met komende en eerdere optredens, je YouTube-playlist met live beelden en een fotogalerij.
+- **HOME**: grote foto met je naam, je biografie (ABOUT), de Spotify-speler, je eerstvolgende 3 optredens plus de laatste 2 (onder *Verleden*) en onderaan het contactblok.
+- **LIVE**: je agenda met komende en eerdere optredens, het groene vak *Boekingen* en je YouTube-playlist met live beelden.
 - **CONTACT**: je e-mailadres, je social media en de inschrijving voor *Emmy's Extra's*.
 
-Het groene contactblok staat ook onderaan de HOME- en LIVE-pagina.
+Het groene contactblok staat ook onderaan de HOME-pagina.
 
 ---
 
@@ -112,7 +112,7 @@ Dat is alles! 🎉
 
 ### Een foto uploaden
 
-1. Ga naar de map waar de foto in moet, bijvoorbeeld `site` → `assets` → `images` → `galerij`.
+1. Ga naar de map waar de foto in moet: `site` → `assets` → `images`.
 2. Klik rechtsboven op **Add file** → **Upload files**.
 3. Sleep je foto('s) in het vak, of klik op *choose your files*.
 4. Klik op **Commit changes**.
@@ -133,8 +133,7 @@ Alle bestanden die jij nodig hebt, staan in de map **`site`**.
 |---|---|
 | Je **optredens** (agenda) | `site/data/optredens.yaml` |
 | Je **biografie**, de **grote foto** op de homepage, de **Spotify-speler** | `site/content/_index.md` |
-| De **YouTube-playlist**, de tekst en de foto van de **LIVE-pagina** | `site/content/live/_index.md` |
-| De **foto's in de galerij** op de LIVE-pagina | map `site/assets/images/galerij/` |
+| De **YouTube-playlist**, het vak **Boekingen** en de foto van de **LIVE-pagina** | `site/content/live/_index.md` |
 | De tekst op de **CONTACT-pagina** | `site/content/contact/_index.md` |
 | Je **e-mailadres**, **social media**, **nieuwsbrief-link** en het **menu** | `site/hugo.toml` |
 | Alle **foto's** | map `site/assets/images/` |
@@ -212,6 +211,7 @@ Een regel die je niet nodig hebt, laat je helemaal weg. Dit is dus ook goed:
 
 - **De volgorde maakt niet uit.** De website zet de optredens zelf op datum.
 - **Voorbij is voorbij.** Een optreden dat geweest is, verschijnt vanzelf onder *Eerdere optredens*. Je hoeft er niets voor te doen.
+- **Waar verschijnen je optredens?** Op de **homepage**, onder de Spotify-speler, staan je **eerstvolgende 3** optredens en onder *Verleden* de **laatste 2**. Op de **LIVE-pagina** staan alle komende optredens, en onder *Eerdere optredens* de **laatste 4**. De oudere optredens zie je daar door op het **plusje (+)** te klikken.
 - **Geen optredens gepland?** Dan staat er automatisch een berichtje dat er nu geen shows zijn, met een verwijzing naar de mailinglijst.
 - **Twee shows op één dag?** Maak gewoon twee blokjes met dezelfde datum.
 - **De link naar de tickets** kopieer je uit de adresbalk van je browser op de site van de zaal of het ticketbureau.
@@ -309,8 +309,8 @@ De code `wL0jhZG8F14` is het stukje na `v=` of na `youtu.be/` in de link van de 
 
 ### 5.6 Een foto vervangen
 
-Je hebt foto's op drie plekken: de grote foto bovenaan elke pagina, de foto
-naast je bio en de galerij. De bestanden staan allemaal in `site/assets/images/`.
+Bovenaan elke pagina staat een grote foto. De bestanden staan allemaal in
+`site/assets/images/`.
 
 **Stap 1: upload je nieuwe foto.**
 Ga naar `site` → `assets` → `images` en kies **Add file** → **Upload files**.
@@ -324,7 +324,6 @@ Ga naar `site` → `assets` → `images` en kies **Add file** → **Upload files
 | Welke foto? | Bestand | Regel |
 |---|---|---|
 | Grote foto op de homepage | `site/content/_index.md` | `foto: "images/hero.jpg"` |
-| Foto naast je bio | `site/content/_index.md` | `about_foto: "images/about.jpg"` |
 | Grote foto op de LIVE-pagina | `site/content/live/_index.md` | `foto: "images/live.jpg"` |
 | Grote foto op de CONTACT-pagina | `site/content/contact/_index.md` | `foto: "images/contact.jpg"` |
 
@@ -344,15 +343,19 @@ een hoger getal (bijvoorbeeld `"center 70%"`) meer van de **onderkant**.
 **Fotograaf vermelden?** Op de LIVE-pagina staat `foto_credit: "foto: Elke Teurlinckx"`.
 Die tekst verschijnt klein rechtsonder in de foto.
 
-### 5.7 Foto's toevoegen aan de galerij
+### 5.7 Het vak Boekingen op de LIVE-pagina
 
-De galerij staat onderaan de LIVE-pagina. **Elke foto in de map
-`site/assets/images/galerij/` komt er automatisch in.**
+Onder je optredens op de LIVE-pagina staat een groen vak met de titel
+**Boekingen**. Je past het aan in `site/content/live/_index.md`:
 
-- **Toevoegen:** ga naar `site` → `assets` → `images` → `galerij`, kies **Add file** → **Upload files** en sleep je foto's erin.
-- **Volgorde:** de foto's staan op alfabetische volgorde van de bestandsnaam. Begin je bestandsnamen dus met een nummer: `01-bird.jpg`, `02-paradiso.jpg`, `03-festival.jpg`.
-- **Weghalen:** open de foto en kies **…** → **Delete file**.
-- **Geen galerij?** Haal alle foto's uit de map; het blok verdwijnt dan vanzelf.
+```yaml
+boekingen_titel: "Boekingen"
+boekingen_tekst: "Wil je een aanvraag doen voor een optreden? Mail dan naar [contact@emmyeve.com](mailto:contact@emmyeve.com)."
+```
+
+- Pas de tekst tussen de aanhalingstekens aan.
+- Het e-mailadres is een link: tussen de `[ ]` staat wat je ziet, tussen de `( )` waar de link naartoe gaat. Verander je het adres? Pas het dan op **beide** plekken aan.
+- Wil je het vak even niet tonen? Maak de titel leeg: `boekingen_titel: ""`.
 
 ### 5.8 E-mailadres, social media en nieuwsbrief
 
@@ -727,9 +730,9 @@ knop elke eerdere versie terugzetten.
 ```
 
 - **Hugo:** extended v0.166.0 (zelfde versie in de workflow en de Dockerfile).
-- **Agenda:** `layouts/_partials/optredens.html` verdeelt de shows tijdens de build in komend/eerder; een klein inline script verplaatst shows die sindsdien voorbij zijn, zodat de site niet dagelijks herbouwd hoeft te worden.
+- **Agenda:** `optredens-data.html` verdeelt de shows tijdens de build in komend/eerder. `optredens.html` (LIVE: alle komende, laatste 4 eerdere + uitklapknop) en `optredens-kort.html` (home: 3 komende, 2 *Verleden*) tonen ze. `optredens-script.html` verplaatst shows die sinds de build voorbij zijn en houdt de aantallen gelijk (`data-max`), zodat de site niet dagelijks herbouwd hoeft te worden.
 - **Embeds:** `layouts/_partials/embed-url.html` zet gewone Spotify-/YouTube-links om naar embed-URL's (YouTube via youtube-nocookie.com).
-- **Contactblok:** zit in `site-footer.html`; de contactpagina vervangt de footer-block door alleen de copyright-regel (Ananke cachet de footer-partial).
+- **Contactblok:** zit in `site-footer.html`; de contact- en LIVE-pagina vervangen de footer-block door alleen de copyright-regel (Ananke cachet de footer-partial).
 
 ### Deployen
 

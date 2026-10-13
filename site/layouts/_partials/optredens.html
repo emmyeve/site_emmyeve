@@ -1,45 +1,18 @@
-{{/*
-  Agenda uit data/optredens.yaml. Bij het bouwen worden de optredens verdeeld in
-  komend en eerder; het scriptje onderaan verplaatst optredens die sindsdien
-  voorbij zijn, zodat de agenda klopt zonder de site opnieuw te bouwen.
-*/}}
-{{- $vandaag := now.Format "2006-01-02" -}}
-{{- $alle := sort (hugo.Data.optredens | default slice) "datum" "desc" -}}
-{{- $komend := slice -}}
-{{- $eerder := slice -}}
-{{- range $alle -}}
-  {{- if ge ((time.AsTime .datum).Format "2006-01-02") $vandaag -}}
-    {{- $komend = $komend | append . -}}
-  {{- else -}}
-    {{- $eerder = $eerder | append . -}}
-  {{- end -}}
-{{- end -}}
-<div class="ee-agenda">
+{{/* De volledige agenda op de LIVE-pagina. */}}
+{{- $data := partial "optredens-data.html" . -}}
+<div class="ee-agenda" data-agenda>
   <h2 class="ee-kop">KOMENDE OPTREDENS</h2>
-  <ul class="ee-shows" id="komend">
-    {{- range sort $komend "datum" "asc" }}{{ partial "optreden.html" . }}{{ end -}}
-  </ul>
-  <p class="ee-leeg" id="geen-shows"{{ if $komend }} hidden{{ end }}>Er staan op dit moment geen optredens gepland. Schrijf je in voor de mailinglijst om als eerste te horen wanneer er nieuwe shows aankomen!</p>
+  {{ partial "optredens-lijst.html" (dict "shows" $data.komend "soort" "komend") }}
+  <p class="ee-leeg" data-leeg{{ if $data.komend }} hidden{{ end }}>Er staan op dit moment geen optredens gepland. Schrijf je in voor de mailinglijst om als eerste te horen wanneer er nieuwe shows aankomen!</p>
 
-  {{- if $eerder }}
-  <details class="ee-eerder" id="eerder-blok">
-    <summary class="ee-kop ee-kop--klein">EERDERE OPTREDENS</summary>
-    <ul class="ee-shows ee-shows--eerder" id="eerder">
-      {{- range $eerder }}{{ partial "optreden.html" . }}{{ end -}}
-    </ul>
-  </details>
+  {{- if $data.eerder }}
+  <div class="ee-eerder">
+    <div class="ee-eerder-kop">
+      <h2 class="ee-kop">EERDERE OPTREDENS</h2>
+      <button type="button" class="ee-uitklap" data-uitklap hidden aria-expanded="false" aria-label="Toon alle eerdere optredens">+</button>
+    </div>
+    {{ partial "optredens-lijst.html" (dict "shows" $data.eerder "soort" "eerder" "max" 4 "class" "ee-shows--eerder") }}
+  </div>
   {{- end }}
 </div>
-<script>
-(function () {
-  var vandaag = new Date().toISOString().slice(0, 10);
-  var komend = document.getElementById("komend");
-  var eerder = document.getElementById("eerder");
-  if (!komend || !eerder) return;
-  var verplaatst = false;
-  Array.prototype.slice.call(komend.children).reverse().forEach(function (li) {
-    if (li.getAttribute("data-datum") < vandaag) { eerder.insertBefore(li, eerder.firstChild); verplaatst = true; }
-  });
-  if (verplaatst && !komend.children.length) document.getElementById("geen-shows").hidden = false;
-})();
-</script>
+{{ partial "optredens-script.html" . }}

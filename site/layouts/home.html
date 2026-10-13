@@ -3,16 +3,9 @@
   {{ partial "hero.html" (dict "page" . "groot" true) }}
 
   <section class="ee-sectie" id="about">
-    <div class="ee-wrap ee-about">
-      {{- with .Params.about_foto }}
-        <figure class="ee-about-foto">
-          {{ partial "afbeelding.html" (dict "src" . "alt" "Emmy Eve" "breedtes" (slice 400 700 1000) "sizes" "(min-width: 60em) 26rem, 100vw" "lazy" true) }}
-        </figure>
-      {{- end }}
-      <div class="ee-about-tekst">
-        <h2 class="ee-kop">{{ .Params.about_titel | default "ABOUT" }}</h2>
-        <div class="ee-tekst">{{ .Content }}</div>
-      </div>
+    <div class="ee-wrap ee-smal ee-midden">
+      <h2 class="ee-kop">{{ .Params.about_titel | default "ABOUT" }}</h2>
+      <div class="ee-tekst">{{ .Content }}</div>
     </div>
   </section>
 
@@ -26,4 +19,12 @@
     </div>
   </section>
   {{- end }}
+
+  <section class="ee-sectie" id="live">
+    <div class="ee-wrap ee-smal">
+      <h2 class="ee-kop">{{ .Params.live_titel | default "LIVE" }}</h2>
+      {{ partial "optredens-kort.html" . }}
+      <p class="ee-meer"><a href="{{ "live/" | relURL }}">Bekijk de hele agenda →</a></p>
+    </div>
+  </section>
 {{ end }}
