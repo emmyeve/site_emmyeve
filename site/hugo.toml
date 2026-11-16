@@ -11,7 +11,7 @@ disableKinds = ["taxonomy", "term", "RSS"]
 
 [params]
   description = "Verhalende popmuziek van Rotterdamse bodem"
-  favicon = "/favicon.png"
+  favicon = "favicon.png"
   body_classes = "emmyeve"
 
   # Contact: dit e-mailadres staat onderaan elke pagina en op de contactpagina.
@@ -38,15 +38,15 @@ disableKinds = ["taxonomy", "term", "RSS"]
 # Het menu bovenaan. Een webshop toevoegen? Zie README.md.
 [[menus.main]]
   name = "HOME"
-  url = "/"
+  pageRef = "/"
   weight = 10
 [[menus.main]]
   name = "LIVE"
-  url = "/live/"
+  pageRef = "/live"
   weight = 20
 [[menus.main]]
   name = "CONTACT"
-  url = "/contact/"
+  pageRef = "/contact"
   weight = 30
 
 [imaging]
