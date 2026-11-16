@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           local-dir: site/public/
-          server-dir: ${{ vars.FTP_MAP || 'public_html/' }}
+          server-dir: ${{ vars.FTP_MAP || 'httpdocs/' }}
 
       - name: Nog niet gekoppeld aan een hostingprovider
         if: env.FTP_INGESTELD != 'true'
