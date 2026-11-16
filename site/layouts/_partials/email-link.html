@@ -1,0 +1,12 @@
+{{- /*
+  Een e-mailadres dat bezoekers gewoon zien en kunnen aanklikken, maar dat
+  spambots moeilijk kunnen lezen. Het adres staat versleuteld in de pagina
+  (data-mail) en wordt in de browser door een klein stukje JavaScript
+  (site-scripts.html) weer leesbaar en klikbaar gemaakt.
+
+  Gebruik: partial "email-link.html" (dict "adres" "naam@domein.nl" "class" "ee-mail")
+*/ -}}
+{{- $adres := .adres -}}
+{{- $delen := split $adres "@" -}}
+<a{{ with .class }} class="{{ . }}"{{ end }} href="#contact" data-mail="{{ $adres | base64Encode }}">{{ index $delen 0 }} [at] {{ replace (index $delen 1) "." " [punt] " }}</a>
+{{- /* einde */ -}}

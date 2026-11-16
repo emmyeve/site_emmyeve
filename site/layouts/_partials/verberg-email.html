@@ -1,0 +1,21 @@
+{{- /*
+  Zoekt in een stuk tekst (HTML) naar het e-mailadres en vervangt het door
+  een versie die spambots moeilijk kunnen lezen (zie email-link.html).
+  Zo kun je in teksten gewoon contact@emmyeve.com of
+  [mail mij](mailto:contact@emmyeve.com) blijven schrijven.
+
+  Gebruik: partial "verberg-email.html" (dict "html" .Content "adres" site.Params.email)
+*/ -}}
+{{- $html := string .html -}}
+{{- with .adres -}}
+  {{- $adres := . -}}
+  {{- $link := string (partial "email-link.html" (dict "adres" $adres)) -}}
+  {{- /* 1. Een link met het adres als tekst: <a href="mailto:adres">adres</a> */ -}}
+  {{- $html = replace $html (printf `<a href="mailto:%s">%s</a>` $adres $adres) $link -}}
+  {{- /* 2. Een link met een eigen tekst, bijv. [mail mij](mailto:adres): de tekst blijft staan. */ -}}
+  {{- $patroon := printf `<a href="mailto:%s">([^<]*)</a>` (replace $adres "." `\.`) -}}
+  {{- $html = replaceRE $patroon (printf `<a href="#contact" data-mail="%s">$1</a>` ($adres | base64Encode)) $html -}}
+  {{- /* 3. Het adres als losse tekst. */ -}}
+  {{- $html = replace $html $adres $link -}}
+{{- end -}}
+{{- $html | safeHTML -}}

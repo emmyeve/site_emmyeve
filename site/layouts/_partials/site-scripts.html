@@ -1,1 +1,11 @@
-{{/* Geen theme-scripts nodig; zie optredens.html voor het enige stukje JavaScript. */}}
+{{/* Geen theme-scripts nodig; zie optredens.html voor het stukje JavaScript van de agenda. */}}
+{{/* Maakt de versleutelde e-mailadressen (email-link.html) weer leesbaar en klikbaar. */}}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("a[data-mail]").forEach(function (a) {
+    var adres = atob(a.getAttribute("data-mail"));
+    a.href = "mailto:" + adres;
+    if (a.textContent.indexOf("[at]") !== -1) a.textContent = adres;
+  });
+});
+</script>

@@ -3,10 +3,10 @@
   <div class="ee-wrap ee-contact-grid">
     <div>
       {{- with .titel }}<h2 class="ee-kop ee-kop--licht">{{ . }}</h2>{{ end }}
-      {{- with .tekst }}<div class="ee-contact-intro">{{ . }}</div>{{ end }}
+      {{- with .tekst }}<div class="ee-contact-intro">{{ partial "verberg-email.html" (dict "html" . "adres" site.Params.email) }}</div>{{ end }}
       {{- with site.Params.email }}
         <p class="ee-label">E-mail</p>
-        <p><a class="ee-mail" href="mailto:{{ . }}">{{ . }}</a></p>
+        <p>{{ partial "email-link.html" (dict "adres" . "class" "ee-mail") }}</p>
       {{- end }}
       <p class="ee-label">Volg Emmy Eve</p>
       {{ partial "socials.html" . }}
